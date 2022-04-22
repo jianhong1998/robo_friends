@@ -1,0 +1,21 @@
+/* General */
+.flex-display {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* Specific */
+.robo-container {
+    width: 200px;
+}
+
+.robo-container img {
+    width: 100%;
+}
+
+.robo-container .robo-information-container {
+    width: 100%;
+    padding: 0 1rem;
+    text-align: center;
+}
