@@ -1,18 +1,40 @@
-import React from "react";
+import React , {Component} from "react";
 import { robots } from "./robots";
 import CardList from "./card_list";
 import SearchBox from "./search_box";
 
-const App = () => {
-    return (
-        <React.Fragment>
-            <div className="tc">
-                <h1>RoboFriends</h1>
-                <SearchBox/>
-                <CardList robots = {robots} />
-            </div>
-        </React.Fragment>
-    );
+class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            robots: robots,
+            searchfield: ""
+        }
+    }
+
+    onSearchChange = (event) => {
+        this.setState({ searchfield: event.target.value });
+    }
+    
+    render() {
+        const filterRobots = this.state.robots.filter(
+            robot => {
+                return robot.name.toLowerCase().includes(
+                    this.state.searchfield.toLowerCase()
+                );
+            }
+        );
+        
+        return (
+            <React.Fragment>
+                <div className="tc">
+                    <h1 id="tittle-robo-friends">Robo Friends</h1>
+                    <SearchBox searchChange = {this.onSearchChange} />
+                    <CardList robots = {filterRobots} />
+                </div>
+            </React.Fragment>
+        );
+    }
 } 
 
 export default App;
