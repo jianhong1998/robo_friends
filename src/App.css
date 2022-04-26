@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'SEGA LOGO FONT';
+    font-style: normal;
+    font-weight: normal;
+    src: local('SEGA LOGO FONT'), url('./font/SEGA.woff') format('woff');
+}
+
+#tittle-robo-friends {
+    font-family: "SEGA LOGO FONT";
+    color: #33A0A0;
+    font-weight: 100;
+}
