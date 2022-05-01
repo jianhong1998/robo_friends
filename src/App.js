@@ -8,15 +8,21 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            robots: robots,
+            robots: [],
             searchfield: ""
         }
+        console.log("Constructor get run");
     }
 
     onSearchChange = (event) => {
         this.setState({ searchfield: event.target.value });
     }
     
+    componentDidMount() {
+        this.setState({ robots : robots });
+        console.log("Component Did Mount");
+    }
+
     render() {
         const filterRobots = this.state.robots.filter(
             robot => {
@@ -26,6 +32,8 @@ class App extends Component {
             }
         );
         
+        console.log("Render get run");
+
         return (
             <React.Fragment>
                 <div className="tc">
