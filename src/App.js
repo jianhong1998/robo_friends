@@ -1,7 +1,8 @@
 import React , {Component} from "react";
-import { robots } from "./robots";
+// import { robots } from "./robots";
 import CardList from "./card_list";
 import SearchBox from "./search_box";
+import Scroll from "./Scroll";
 import './App.css';
 
 class App extends Component {
@@ -11,7 +12,6 @@ class App extends Component {
             robots: [],
             searchfield: ""
         }
-        console.log("Constructor get run");
     }
 
     onSearchChange = (event) => {
@@ -19,30 +19,45 @@ class App extends Component {
     }
     
     componentDidMount() {
-        this.setState({ robots : robots });
-        console.log("Component Did Mount");
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(users => this.setState({ robots : users }));
     }
 
     render() {
-        const filterRobots = this.state.robots.filter(
+        const {robots , searchfield} = this.state;
+
+        const filterRobots = robots.filter(
             robot => {
                 return robot.name.toLowerCase().includes(
-                    this.state.searchfield.toLowerCase()
+                    searchfield.toLowerCase()
                 );
             }
         );
         
-        console.log("Render get run");
-
-        return (
-            <React.Fragment>
-                <div className="tc">
+        return (!robots.length) ? 
+            (
+                <React.Fragment>
+                    <div className="tc">
                     <h1 className="f1" id="tittle-robo-friends">Robo Friends</h1>
                     <SearchBox searchChange = {this.onSearchChange} />
-                    <CardList robots = {filterRobots} />
+                    <h1 className="f1" id="loading">
+                        Loading...
+                    </h1>
                 </div>
-            </React.Fragment>
-        );
+                </React.Fragment>
+            ) :
+            (
+                <React.Fragment>
+                    <div className="tc">
+                        <h1 className="f1" id="tittle-robo-friends">Robo Friends</h1>
+                        <SearchBox searchChange = {this.onSearchChange} />
+                        <Scroll>
+                            <CardList robots = {filterRobots} />
+                        </Scroll>
+                    </div>
+                </React.Fragment>
+            );
     }
 } 
 
